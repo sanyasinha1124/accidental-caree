@@ -1,0 +1,244 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Care Network</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EmergencyCare</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#emergency">Emergency</a></li>
+                <li><a href="#first-aid">First Aid</a></li>
+                <li><a href="#hospitals">Find Help</a></li>
+                <li><a href="#volunteer">Volunteer</a></li>
+                <li><a href="#training">Training</a></li>
+                <li><a href="#login" id="login-btn">Login</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Emergency Care When You Need It Most</h1>
+                <p>Immediate assistance, first aid guides, and nearby help at your fingertips</p>
+                <div class="hero-buttons">
+                    <button id="emergency-btn" class="btn-primary">Emergency Help</button>
+                    <button id="volunteer-btn" class="btn-secondary">Become a Volunteer</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="emergency" class="emergency-section">
+            <div class="container">
+                <h2>Emergency Assistance</h2>
+                <div class="emergency-options">
+                    <div class="emergency-card" data-type="medical">
+                        <i class="fas fa-ambulance"></i>
+                        <h3>Medical Emergency</h3>
+                        <p>Request immediate medical assistance</p>
+                    </div>
+                    <div class="emergency-card" data-type="police">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Police</h3>
+                        <p>Contact local law enforcement</p>
+                    </div>
+                    <div class="emergency-card" data-type="fire">
+                        <i class="fas fa-fire-extinguisher"></i>
+                        <h3>Fire Department</h3>
+                        <p>Report fires or rescue needs</p>
+                    </div>
+                </div>
+                <div id="emergency-form" class="hidden">
+                    <h3>Request Help</h3>
+                    <form id="emergency-request-form">
+                        <div class="form-group">
+                            <label for="emergency-type">Emergency Type</label>
+                            <select id="emergency-type" required>
+                                <option value="medical">Medical Emergency</option>
+                                <option value="accident">Accident</option>
+                                <option value="fire">Fire</option>
+                                <option value="crime">Crime in Progress</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency-severity">Severity</label>
+                            <select id="emergency-severity" required>
+                                <option value="high">Critical (Life-threatening)</option>
+                                <option value="medium">Serious (Needs urgent care)</option>
+                                <option value="low">Minor (Needs attention)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency-description">Description</label>
+                            <textarea id="emergency-description" placeholder="Briefly describe the emergency"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Location</label>
+                            <div id="location-status">Click to share your location</div>
+                            <button type="button" id="get-location-btn">Share My Location</button>
+                            <input type="hidden" id="latitude">
+                            <input type="hidden" id="longitude">
+                        </div>
+                        <button type="submit" class="btn-primary">Send Emergency Request</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="first-aid" class="first-aid-section">
+            <div class="container">
+                <h2>First Aid Guides</h2>
+                <div class="search-box">
+                    <input type="text" id="first-aid-search" placeholder="Search first aid topics...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="first-aid-categories">
+                    <!-- Categories will be loaded dynamically -->
+                </div>
+                <div class="first-aid-guides">
+                    <!-- Guides will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="hospitals" class="map-section">
+            <div class="container">
+                <h2>Find Nearby Help</h2>
+                <div class="map-container">
+                    <div id="map"></div>
+                    <div class="map-controls">
+                        <button id="find-hospitals">Hospitals</button>
+                        <button id="find-pharmacies">Pharmacies</button>
+                        <button id="find-trauma-centers">Trauma Centers</button>
+                        <button id="find-me">My Location</button>
+                    </div>
+                    
+
+
+   
+
+                </div>
+            </div>
+        </section>
+     
+    <h2>Nerul, Navi Mumbai</h2>
+    <div id="nerul-map"></div>
+
+    <script>
+        function initMap() {
+            // Nerul coordinates (example: Nerul Railway Station)
+            const nerul = { lat: 19.0330, lng: 73.0297 };
+            
+            const map = new google.maps.Map(document.getElementById("nerul-map"), {
+                zoom: 15,
+                center: nerul,
+                mapTypeId: "roadmap"
+            });
+            
+            // Add marker
+            new google.maps.Marker({
+                position: nerul,
+                map: map,
+                title: "Nerul, Navi Mumbai"
+            });
+            
+            // Optional: Add additional markers for landmarks
+            const landmarks = [
+                {lat: 19.0365, lng: 73.0216, title: "DY Patil Stadium"},
+                {lat: 19.0299, lng: 73.0319, title: "Nerul Lake"},
+                {lat: 19.0356, lng: 73.0259, title: "Central Park"}
+            ];
+            
+            landmarks.forEach(landmark => {
+                new google.maps.Marker({
+                    position: {lat: landmark.lat, lng: landmark.lng},
+                    map: map,
+                    title: landmark.title
+                });
+            });
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
+
+        <!-- Other sections (Volunteer, Training) would follow similar structure -->
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Emergency Contacts</h3>
+                <ul>
+                    <li>National Emergency: 112</li>
+                    <li>Medical Emergency: 911</li>
+                    <li>Police: 100</li>
+                    <li>Fire: 101</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#first-aid">First Aid Guides</a></li>
+                    <li><a href="#hospitals">Find Hospitals</a></li>
+                    <li><a href="#training">Training Programs</a></li>
+                    <li><a href="#volunteer">Volunteer</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Emergency Care Network. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Register Modal would be similar -->
+
+    <script src="js/main.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/emergency.js"></script>
+    <!-- Include Google Maps API with your key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>
